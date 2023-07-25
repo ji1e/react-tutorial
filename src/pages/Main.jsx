@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../common/Header";
 import Container from "../common/Container";
 
-export default function Main() {
+export default function Main(props) {
   const navigate = useNavigate();
+
   return (
     <>
       <Header />
@@ -32,9 +33,12 @@ export default function Main() {
             추가
           </button>
         </div>
-        {[1, 2, 3, 4].map((item) => (
+        {/* useState로 만든 임시데이터(data)를 map을 활용하여 보여줌.  */}
+        {/* data.map((아이템) => ())  data의 요소(배열 안에 있는 객체 하나 하나들)를 하나씩 반복해서 보여줌. 객체 안에 있는 것들을 쓰려면 {아이템.id} 이런식으로 쓰면 됨. */}
+        {props.data.map((item) => (
           <div
-            key={item}
+            // map 내부에 warning이 발생하지 않도록 고유한 key값 넣어줌
+            key={item.id}
             style={{
               backgroundColor: "#EEEEEE",
               height: "100px",
@@ -46,7 +50,7 @@ export default function Main() {
           >
             <div
               onClick={() => {
-                navigate("/detail/1");
+                navigate(`/detail/${item.id}`);
               }}
               style={{
                 flex: 4,
@@ -54,7 +58,7 @@ export default function Main() {
                 cursor: "pointer",
               }}
             >
-              <h2>제목</h2>
+              <h2>{item.title}</h2>
               <p
                 style={{
                   width: "300px",
@@ -63,10 +67,7 @@ export default function Main() {
                   whiteSpace: "nowrap",
                 }}
               >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.Lorem
-                ipsum dolor, sit amet consectetur adipisicing elit.Lorem ipsum
-                dolor, sit amet consectetur adipisicing elit.Lorem ipsum dolor,
-                sit amet consectetur adipisicing elit.
+                {item.content}
               </p>
             </div>
             <div
@@ -79,7 +80,7 @@ export default function Main() {
                 gap: "12px",
               }}
             >
-              <div>작성자</div>
+              <div>{item.author}</div>
               <div>
                 <button
                   onClick={() => {

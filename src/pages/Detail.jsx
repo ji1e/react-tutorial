@@ -1,36 +1,50 @@
 import React from "react";
 import Header from "../common/Header";
 import Container from "../common/Container";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function Detail() {
+export default function Detail(props) {
   const navigate = useNavigate();
+
+  // useParams를 이용하여 url의 id를 가져옴
+  const { id } = useParams();
+
   return (
     <>
       <Header />
       <Container>
-        <h1
-          style={{
-            border: "1px solid lightgray",
-            borderRadius: "12px",
-            padding: "12px",
-          }}
-        >
-          제목
-        </h1>
-        <div
-          style={{
-            height: "400px",
-            border: "1px solid lightgray",
-            borderRadius: "12px",
-            padding: "12px",
-          }}
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad doloribus
-          blanditiis vitae sapiente. Expedita delectus nihil animi pariatur,
-          labore quod officiis dolor fugit. Mollitia quod, delectus velit
-          deleniti nihil veniam!
-        </div>
+        {props.data.map((item) => {
+          {
+            console.log(item.id);
+          }
+          if (item.id == id) {
+            return (
+              <>
+                <h1
+                  key={item.id}
+                  style={{
+                    border: "1px solid lightgray",
+                    borderRadius: "12px",
+                    padding: "12px",
+                  }}
+                >
+                  {item.title}
+                </h1>
+                <div
+                  key={item.id}
+                  style={{
+                    height: "400px",
+                    border: "1px solid lightgray",
+                    borderRadius: "12px",
+                    padding: "12px",
+                  }}
+                >
+                  {item.content}
+                </div>
+              </>
+            );
+          }
+        })}
         <div
           style={{
             marginTop: "12px",
