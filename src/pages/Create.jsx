@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import Header from "../common/Header";
 import Container from "../common/Container";
 import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
 
 export default function Create(props) {
+  const navigate = useNavigate();
+
   // 인풋을 스테이트로 만들기
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
@@ -20,16 +23,22 @@ export default function Create(props) {
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
+          // 추가하기 버튼 클릭 시 app.js의 data에 추가
           onSubmit={(e) => {
             e.preventDefault();
-            // 추가하기 버튼 클릭 시 app.js의 data에 추가 해서 Main에 보여주기
+            // 새 변수를 선언하여 기존의 임시데이터 배열을 복사함.
             let copy = [...props.data];
+            // 복사한 곳에 새 데이터를 추가
             copy.push({
               id: nanoid(),
               title: newTitle,
               content: newContent,
+              author: "",
             });
+            // setData로 추가한 새 배열을 Data에 바꾸어 넣어줌
             props.setData(copy);
+            // 홈페이지로 이동
+            navigate("/");
           }}
         >
           <div>

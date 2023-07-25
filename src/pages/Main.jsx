@@ -84,7 +84,7 @@ export default function Main(props) {
               <div>
                 <button
                   onClick={() => {
-                    navigate("/edit");
+                    navigate(`/edit/${item.id}`);
                   }}
                   style={{
                     border: "none",

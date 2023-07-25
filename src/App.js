@@ -39,7 +39,7 @@ function App() {
       <Route path="/" element={<Main data={data} />} />
       <Route path="/detail/:id" element={<Detail data={data} />} />
       <Route path="/create" element={<Create data={data} setData={setData} />} />
-      <Route path="/edit" element={<Edit />} />
+      <Route path="/edit/:id" element={<Edit data={data} setData={setData} />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {/* 없는 URL로 접근할 때 연결되는 페이지 */}
