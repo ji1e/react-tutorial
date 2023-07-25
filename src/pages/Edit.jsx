@@ -14,7 +14,7 @@ export default function Edit(props) {
   const [editContent, setEditContent] = useState("");
 
   // findIndex를 이용하여 클릭한 게시물의 id값으로 인덱스를 찾아 변수에 넣어줌
-  let findData = props.data.findIndex((item) => item.id == id);
+  let findEditIndex = props.data.findIndex((item) => item.id == id);
 
   return (
     <Fragment>
@@ -38,7 +38,7 @@ export default function Edit(props) {
                     // 새 변수를 선언하여 기존의 임시데이터 배열을 복사함.
                     let copy = [...props.data];
                     // 복사한 배열에 수정할 값을 할당함. 수정할 위치는 findIndex를 이용하여 찾아 변수에 넣었던 것을 사용.
-                    copy[findData] = { ...copy[findData], title: editTitle, content: editContent };
+                    copy[findEditIndex] = { ...copy[findEditIndex], title: editTitle, content: editContent };
                     // setData로 수정한 값을 Data에 바꾸어 넣어줌
                     props.setData(copy);
                     // 홈페이지로 이동

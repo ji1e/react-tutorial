@@ -35,7 +35,7 @@ export default function Main(props) {
         </div>
         {/* useState로 만든 임시데이터(data)를 map을 활용하여 보여줌.  */}
         {/* data.map((아이템) => ())  data의 요소(배열 안에 있는 객체 하나 하나들)를 하나씩 반복해서 보여줌. 객체 안에 있는 것들을 쓰려면 {아이템.id} 이런식으로 쓰면 됨. */}
-        {props.data.map((item) => (
+        {props.data.map((item, index) => (
           <div
             // map 내부에 warning이 발생하지 않도록 고유한 key값 넣어줌
             key={item.id}
@@ -100,7 +100,12 @@ export default function Main(props) {
                 </button>
                 <button
                   onClick={() => {
-                    alert("삭제할까?");
+                    // 필터로 클릭하지 않은 데이터들만 걸러냄
+                    const filterData = props.data.filter((filterItem) => {
+                      return filterItem.id !== item.id;
+                    });
+                    // 걸러낸 클릭하지 않은 게시물들을 setData 해줌
+                    props.setData(filterData);
                   }}
                   style={{
                     border: "none",
