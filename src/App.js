@@ -38,7 +38,7 @@ function App() {
       {/* data를 props로 메인페이지, 상품페이지, 상품 상세페이지에 내려줌 */}
       <Route path="/" element={<Main data={data} />} />
       <Route path="/detail/:id" element={<Detail data={data} />} />
-      <Route path="/create" element={<Create />} />
+      <Route path="/create" element={<Create data={data} setData={setData} />} />
       <Route path="/edit" element={<Edit />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
