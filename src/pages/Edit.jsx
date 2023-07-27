@@ -6,12 +6,15 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function Edit(props) {
   const navigate = useNavigate();
 
-  // useParams를 이용하여 url의 id를 가져옴
+  // useParams를 이용하여 url의 id를 가져옴(문자열로 가져옴-> Number로 바꿔주기!)
   const { id } = useParams();
 
+  // find 쓸 때는 옵셔널 체이닝(?) 쓰는것을 추천
+  const newData = props.data.find((item) => item.id == id);
+
   // 인풋을 스테이트로 만들기
-  const [editTitle, setEditTitle] = useState("");
-  const [editContent, setEditContent] = useState("");
+  const [editTitle, setEditTitle] = useState(newData.title); //()안에 초기값 넣어주기
+  const [editContent, setEditContent] = useState(newData.content);
 
   // findIndex를 이용하여 클릭한 게시물의 id값으로 인덱스를 찾아 변수에 넣어줌
   let findEditIndex = props.data.findIndex((item) => item.id == id);
@@ -58,7 +61,7 @@ export default function Edit(props) {
                         boxSizing: "border-box",
                       }}
                       // 가져온 데이터 중 타이틀을 기본값으로 설정함.
-                      defaultValue={item.title}
+                      value={editTitle} // 현재 인풋의 값을 셋했던 스테이트로 넣어주기
                       onChange={(e) => {
                         // 타이틀 수정 입력값 셋하기
                         setEditTitle(e.target.value);
@@ -83,7 +86,7 @@ export default function Edit(props) {
                         boxSizing: "border-box",
                       }}
                       // 가져온 데이터 중 콘텐츠를 기본값으로 설정함.
-                      defaultValue={item.content}
+                      value={editContent} // 현재 인풋의 값을 셋했던 스테이트로 넣어주기
                       onChange={(e) => {
                         // 콘텐츠 수정 입력값 셋하기
                         setEditContent(e.target.value);

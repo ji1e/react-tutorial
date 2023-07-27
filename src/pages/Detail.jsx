@@ -13,6 +13,7 @@ export default function Detail(props) {
     <>
       <Header />
       <Container>
+        {/* find로 해도 됨!!!!!! */}
         {props.data.map((item) => {
           if (item.id == id) {
             return (
@@ -62,6 +63,13 @@ export default function Detail(props) {
                   <button
                     onClick={() => {
                       alert("삭제할까?");
+                      // 필터로 클릭하지 않은 데이터들만 걸러냄
+                      const filterData = props.data.filter((filterItem) => {
+                        return filterItem.id !== item.id;
+                      });
+                      // 걸러낸 클릭하지 않은 게시물들을 setData 해줌
+                      props.setData(filterData);
+                      navigate("/");
                     }}
                     style={{
                       border: "none",

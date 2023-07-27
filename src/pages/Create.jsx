@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "../common/Header";
 import Container from "../common/Container";
@@ -56,8 +56,6 @@ export default function Create(props) {
               onChange={(e) => {
                 // 타이틀 입력값 셋하기
                 setNewTitle(e.target.value);
-                // TODO: 여기서 왜 한글자씩 안보이는지 질문하기!!!!!!!!!!
-                console.log(newTitle);
               }}
             />
           </div>
@@ -81,8 +79,6 @@ export default function Create(props) {
               onChange={(e) => {
                 // 콘탠츠 입력값 셋하기
                 setNewContent(e.target.value);
-                // TODO: 여기서 왜 한글자씩 안보이는지 질문하기!!!!!!!!!!
-                console.log(newContent);
               }}
             />
           </div>

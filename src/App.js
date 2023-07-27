@@ -37,7 +37,7 @@ function App() {
       {/* path="/"이기 때문에 '<주소>/'인 주소로 접속할 경우 Main 컴포넌트가 화면에 보여지게 된다.  */}
       {/* data를 props로 메인페이지, 상품페이지, 상품 상세페이지에 내려줌 */}
       <Route path="/" element={<Main data={data} setData={setData} />} />
-      <Route path="/detail/:id" element={<Detail data={data} />} />
+      <Route path="/detail/:id" element={<Detail data={data} setData={setData} />} />
       <Route path="/create" element={<Create data={data} setData={setData} />} />
       <Route path="/edit/:id" element={<Edit data={data} setData={setData} />} />
       <Route path="/signup" element={<Signup />} />
