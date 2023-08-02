@@ -2,28 +2,34 @@ import React, { Fragment, useState } from "react";
 import Header from "../common/Header";
 import Container from "../common/Container";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { editData } from "../redux/data";
 
-export default function Edit(props) {
+export default function Edit() {
   const navigate = useNavigate();
 
-  // useParams를 이용하여 url의 id를 가져옴(문자열로 가져옴-> Number로 바꿔주기!)
+  // 초기데이터 가져오기
+  const data = useSelector((state) => state.데이터);
+  const dispatch = useDispatch();
+
+  // useParams를 이용하여 url의 id를 문자열로 가져옴
   const { id } = useParams();
 
   // find 쓸 때는 옵셔널 체이닝(?) 쓰는것을 추천
-  const newData = props.data.find((item) => item.id == id);
+  const newData = data.find((item) => item.id === id);
 
   // 인풋을 스테이트로 만들기
-  const [editTitle, setEditTitle] = useState(newData.title); //()안에 초기값 넣어주기
-  const [editContent, setEditContent] = useState(newData.content);
+  const [editTitle, setEditTitle] = useState(newData?.title); // || 연산자로 바꾸기!!!!!!!!!
+  const [editContent, setEditContent] = useState(newData?.content); // || 연산자로 바꾸기!!!!!!!!!
 
   // findIndex를 이용하여 클릭한 게시물의 id값으로 인덱스를 찾아 변수에 넣어줌
-  let findEditIndex = props.data.findIndex((item) => item.id == id);
+  let findEditIndex = data.findIndex((item) => item.id == id);
 
   return (
     <Fragment>
       <Header />
       <Container>
-        {props.data.map((item) => {
+        {data.map((item) => {
           // 클릭한 게시물의 id와 현재 url의 id가 같으면 App.js의 data 중 클릭한 게시물의 데이터 가져옴
           if (item.id == id) {
             return (
@@ -38,13 +44,16 @@ export default function Edit(props) {
                   // 수정하기 버튼 클릭 시 app.js의 data를 수정
                   onSubmit={(e) => {
                     e.preventDefault();
-                    // 새 변수를 선언하여 기존의 임시데이터 배열을 복사함.
-                    let copy = [...props.data];
-                    // 복사한 배열에 수정할 값을 할당함. 수정할 위치는 findIndex를 이용하여 찾아 변수에 넣었던 것을 사용.
-                    copy[findEditIndex] = { ...copy[findEditIndex], title: editTitle, content: editContent };
-                    // setData로 수정한 값을 Data에 바꾸어 넣어줌
-                    props.setData(copy);
-                    // 홈페이지로 이동
+                    if (newData) {
+                      dispatch(
+                        // 기존값을 가져오고 스테이트로 만든 새 인풋값을 타이틀과 콘텐트에 넣어줌.
+                        editData({
+                          ...newData,
+                          title: editTitle,
+                          content: editContent,
+                        })
+                      );
+                    }
                     navigate("/");
                   }}
                 >
